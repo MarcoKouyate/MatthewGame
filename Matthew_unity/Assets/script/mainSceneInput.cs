@@ -20,10 +20,12 @@ public class mainSceneInput : MonoBehaviour {
 			if(myCanvas.activeInHierarchy == false){
 				myCanvas.SetActive(true);
 				Cursor.lockState = CursorLockMode.None;
+				Time.timeScale = 0;
 				
 			}else{
 				myCanvas.SetActive(false);
 				Cursor.lockState = CursorLockMode.Locked;
+				Time.timeScale = 1;
 			}
 			
 			Debug.Log("touche m");

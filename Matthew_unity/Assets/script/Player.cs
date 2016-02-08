@@ -6,16 +6,17 @@ using Image=UnityEngine.UI.Image;
 public class Player : MonoBehaviour {
 
 	public Animator anim;
-	public float speed = 50;
+	public float speed = 20f;
+	public Vector2 jumpVector;
 
 	public int coins = 0;
 
 	public Transform checkSol;
-	bool toucheSol = false;
-	float rayonSol = 0.3f;
+	public bool toucheSol = false;
+	public float rayonSol = 0f;
 	public LayerMask Sol; //dire a Unity ce qu'est le sol 
 
-public Color goodColor;
+	public Color goodColor;
 	public Color middleColor;
 	public Color badColor;
 	Image BarVie;
@@ -43,7 +44,8 @@ public Color goodColor;
 		anim.SetFloat ("speed", Mathf.Abs(x));
 
 		if (toucheSol && Input.GetButtonDown ("Jump")) {
-			GetComponent<Rigidbody2D>().AddForce(new Vector2(0, 2000));
+			GetComponent<Rigidbody2D>().AddForce( jumpVector, ForceMode2D.Force);
+			
 		}
 
 		if(x > 0){
@@ -88,7 +90,7 @@ public Color goodColor;
 
 	void OnGUI(){
 
-		GUI.Label( new Rect(80, 82, 85, 25), " "+coins);
+		GUI.Label( new Rect(100, 150, 85, 25), " "+coins);
 	}
 
 
