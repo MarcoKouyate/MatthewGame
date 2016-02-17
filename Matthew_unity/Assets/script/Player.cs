@@ -5,16 +5,31 @@ using Image=UnityEngine.UI.Image;
 
 public class Player : MonoBehaviour {
 
+
+	public float movementSpeed = 20f;
 	public Animator anim;
-	public float speed = 20f;
-	public Vector2 jumpVector;
+	public float speed = 30f;
+
+	public float jumpHeight;
+	public float jumpPushForce = 5f;
+	bool facingRight = true;
+
+	bool wallJumped = false;
+
+	public bool mur = false;
+	public bool sol = false;
+	public bool water = false;
 
 	public int coins = 0;
 
 	public Transform checkSol;
 	public bool toucheSol = false;
+	public bool grounded = false;
+	public Transform groundCheck;
 	public float rayonSol = 0f;
 	public LayerMask Sol; //dire a Unity ce qu'est le sol 
+	public LayerMask Mur; //dire a Unity ce qu'est le mur 
+
 
 	public Color goodColor;
 	public Color middleColor;
@@ -31,31 +46,74 @@ public class Player : MonoBehaviour {
 	}
 
 	void FixedUpdate(){
+
+
 		toucheSol = Physics2D.OverlapCircle (checkSol.position, rayonSol, Sol); //es-ce que mon cercle touche quelque chose entre la position du game object chechSo, le rayon et le mask sol
 		anim.SetBool ("sol", toucheSol);
+
+		if(wallJumped)
+		{
+			GetComponent<Rigidbody2D>().velocity = new Vector2(jumpPushForce * (facingRight ? -1:1), jumpHeight);
+			wallJumped = false;
+		}
+
+
+	
+		if (GetComponent<Rigidbody2D>().velocity.x > 0 && !facingRight)
+		{
+			Flip();
+		}
+		else if (GetComponent<Rigidbody2D>().velocity.x < 0 && facingRight)
+		{
+			Flip();
+		}
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		bool wallSliding = false;
+
 
 		BarVie.fillAmount = tmpVie;
 
 		float x = Input.GetAxis ("Horizontal");
 		anim.SetFloat ("speed", Mathf.Abs(x));
 
-		if (toucheSol && Input.GetButtonDown ("Jump")) {
-			GetComponent<Rigidbody2D>().AddForce( jumpVector, ForceMode2D.Force);
-			
+		if (toucheSol && sol && Input.GetButtonDown ("Jump") || water && Input.GetButtonDown ("Jump") ) {
+
+			GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,jumpHeight);
+
+		}
+		else if (grounded && mur && Input.GetButtonDown ("Jump")) {
+
+			GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,jumpHeight);
+			wallJumped = true;
+		}
+	
+
+		if (Input.GetButtonDown ("Jump")) {
+			GetComponent<Rigidbody2D>().isKinematic = false;
+			transform.parent = null;
 		}
 
 		if(x > 0){
+
 			transform.Translate (x * speed * Time.deltaTime, 0, 0);
 			transform.eulerAngles = new Vector2 (0,0);
-	}
+			GetComponent<Rigidbody2D>().isKinematic = false;
+
+		}
 		if(x < 0){
+
 			transform.Translate (-x * speed * Time.deltaTime, 0, 0);
 			transform.eulerAngles = new Vector2(0,180);
+			GetComponent<Rigidbody2D>().isKinematic = false;
+
 		}
+
+
 	}
 
 
@@ -68,12 +126,62 @@ public class Player : MonoBehaviour {
 		if(coll.gameObject.tag == "coin"){
 			Debug.Log("Coin");
 			coins = coins +1;
-			//Destroy(GameObject.Find("coin1"));
+
 		}
+
+		if (coll.transform.tag == "platform") 
+		{
+			GetComponent<Rigidbody2D>().isKinematic=true;
+			transform.parent = coll.transform;
+		}
+
 
 	}
 
+	void OnCollisionExit2D(Collision2D coll){
+
+
+	}
+
+	void OnTriggerEnter2D(Collider2D other){
+		if (other.gameObject.name == "Water") {
+			water = true;
+			GetComponent<Rigidbody2D>().gravityScale = 0.2f;
+			jumpHeight = 1;
+			Debug.Log("water");
+		}
+
+
+
+
+		if (other.gameObject.name == "Objet_jump") {
+			grounded = true;
+			Destroy(GameObject.Find("Objet_jump"));
+		}
+
+		if (other.gameObject.name == "MUR") {
+			mur = true;
+		}
+		if (other.gameObject.name == "Sol") {
+			sol = true;
+		}
+
+	}
+	void OnTriggerExit2D(Collider2D other){
+		if (other.gameObject.name == "Water") {
+			water = false;
+			GetComponent<Rigidbody2D>().gravityScale = 2;
+			jumpHeight = 7;
+		}
+
+		if (other.gameObject.name == "MUR") {
+			mur = false;
+		}
+		if (other.gameObject.name == "Sol") {
+			sol = false;
+		}
 	
+	}
 
 	void SetColor(float value){
 		if (value >= 0.5f) {
@@ -84,14 +192,24 @@ public class Player : MonoBehaviour {
 			BarVie.color = badColor;
 		}else {
 			BarVie.fillAmount = 0f;
-			Destroy(GameObject.Find("Sonic"));
+			Destroy(this.gameObject);
 		}
 	}
 
 	void OnGUI(){
 
-		GUI.Label( new Rect(100, 150, 85, 25), " "+coins);
+		GUI.Label( new Rect(150, 140, 85, 25), " "+coins);
 	}
+
+	void Flip()
+	{      
+		facingRight = !facingRight;
+		
+		Vector3 theScale = transform.localScale;
+		theScale.x *= -1;
+		transform.localScale = theScale;
+	}
+
 
 
 
