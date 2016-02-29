@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class scrooler : MonoBehaviour {
@@ -15,6 +15,11 @@ public class scrooler : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         float newPosition = Mathf.Repeat(Time.time * scrollSpeed, tileSizeX);
-        transform.position = startPosition + Vector3.left * newPosition;
+		transform.position = transform.position + Vector3.left * (scrollSpeed/1000);
+		float ecart = startPosition.x - transform.position.x;
+		if(ecart >tileSizeX){
+			transform.position = startPosition;
+		}
+
 	}
 }

@@ -59,22 +59,21 @@ public class Player : MonoBehaviour {
 		anim.SetBool ("sol", toucheSol);
 
 
-		if(wallJumped)
-		{
-			GetComponent<Rigidbody2D>().velocity = new Vector2(jumpPushForce * (facingRight ? -1:1), jumpHeight);
+		if (wallJumped) {
+			GetComponent<Rigidbody2D> ().velocity = new Vector2 (jumpPushForce * (facingRight ? -1 : 1), jumpHeight);
 			wallJumped = false;
+			if (GetComponent<Rigidbody2D> ().velocity.x > 0 && !facingRight) {
+				Flip ();
+			} else if (GetComponent<Rigidbody2D> ().velocity.x < 0 && facingRight) {
+				Flip ();
+			}
+
+		} else {
+			
 		}
 
 
 	
-		if (GetComponent<Rigidbody2D>().velocity.x > 0 && !facingRight)
-		{
-			Flip();
-		}
-		else if (GetComponent<Rigidbody2D>().velocity.x < 0 && facingRight)
-		{
-			Flip();
-		}
 
 	}
 	
