@@ -47,10 +47,13 @@
   <ItemGroup>
      <Compile Include="Assets\script\Camera.cs" />
      <Compile Include="Assets\script\ColliderTrigger.cs" />
+     <Compile Include="Assets\script\GantScript.cs" />
      <Compile Include="Assets\script\NavigationScript.cs" />
      <Compile Include="Assets\script\Player.cs" />
      <Compile Include="Assets\script\VieBarre.cs" />
+     <Compile Include="Assets\script\key.cs" />
      <Compile Include="Assets\script\mainSceneInput.cs" />
+     <Compile Include="Assets\script\porte.cs" />
      <Compile Include="Assets\script\scrooler.cs" />
      <None Include="Assets\2D Sky FREE\!Readme.txt" />
  <Reference Include="UnityEngine.UI">

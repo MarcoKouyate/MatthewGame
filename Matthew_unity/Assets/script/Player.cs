@@ -11,7 +11,7 @@ public class Player : MonoBehaviour {
 	public float speed = 30f;
 
 	public float jumpHeight;
-	public float jumpPushForce = 5f;
+	public float jumpPushForce = 1f;
 	bool facingRight = true;
 
 	bool wallJumped = false;
@@ -37,11 +37,18 @@ public class Player : MonoBehaviour {
 	Image BarVie;
 	float tmpVie=1;
 
+	public bool key = false;
+	public Texture ImgKey;
+
+
+
+
 	// Use this for initialization
 	void Start () {
 		anim = GetComponent<Animator> ();
 		BarVie = GameObject.Find("MainCamera").transform.FindChild("Canvas").FindChild("BarVie").GetComponent<Image>();
 		SetColor (1);
+
 
 	}
 
@@ -50,6 +57,7 @@ public class Player : MonoBehaviour {
 
 		toucheSol = Physics2D.OverlapCircle (checkSol.position, rayonSol, Sol); //es-ce que mon cercle touche quelque chose entre la position du game object chechSo, le rayon et le mask sol
 		anim.SetBool ("sol", toucheSol);
+
 
 		if(wallJumped)
 		{
@@ -128,6 +136,11 @@ public class Player : MonoBehaviour {
 			coins = coins +1;
 
 		}
+		if (coll.gameObject.tag == "key") {
+			key = true;
+			GUI.Label( new Rect(200, 200, 85, 25), "KEY");
+			GameObject.Find("Porte").GetComponent<porte>().key = true;
+		}
 
 		if (coll.transform.tag == "platform") 
 		{
@@ -150,13 +163,10 @@ public class Player : MonoBehaviour {
 			jumpHeight = 1;
 			Debug.Log("water");
 		}
-
-
-
-
 		if (other.gameObject.name == "Objet_jump") {
 			grounded = true;
 			Destroy(GameObject.Find("Objet_jump"));
+
 		}
 
 		if (other.gameObject.name == "MUR") {
@@ -198,7 +208,13 @@ public class Player : MonoBehaviour {
 
 	void OnGUI(){
 
-		GUI.Label( new Rect(150, 140, 85, 25), " "+coins);
+		GUI.Label( new Rect(150, 100, 85, 25), " "+coins);
+
+		if (key == true) {
+			GUI.DrawTexture(new Rect(100, 120, 60, 60), ImgKey, ScaleMode.StretchToFill, true, 10.0F);
+
+		}
+
 	}
 
 	void Flip()
