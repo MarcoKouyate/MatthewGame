@@ -50,6 +50,8 @@
      <Compile Include="Assets\script\GantScript.cs" />
      <Compile Include="Assets\script\NavigationScript.cs" />
      <Compile Include="Assets\script\Player.cs" />
+     <Compile Include="Assets\script\PorteEnd.cs" />
+     <Compile Include="Assets\script\RedButon.cs" />
      <Compile Include="Assets\script\VieBarre.cs" />
      <Compile Include="Assets\script\key.cs" />
      <Compile Include="Assets\script\mainSceneInput.cs" />

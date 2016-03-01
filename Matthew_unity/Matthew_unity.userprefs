@@ -1,11 +1,14 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\GantScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\Player.cs">
     <Files>
-      <File FileName="Assets\script\GantScript.cs" Line="19" Column="32" />
+      <File FileName="Assets\script\Player.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\GantScript.cs" Line="1" Column="1" />
       <File FileName="Assets\script\coins.js" Line="1" Column="1" />
       <File FileName="Assets\script\key.cs" Line="1" Column="1" />
       <File FileName="Assets\script\porte.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\RedButon.cs" Line="1" Column="1" />
+      <File FileName="Assets\script\PorteEnd.cs" Line="16" Column="68" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

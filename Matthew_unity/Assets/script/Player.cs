@@ -40,6 +40,8 @@ public class Player : MonoBehaviour {
 	public bool key = false;
 	public Texture ImgKey;
 
+	public bool redButon = false;
+
 
 
 
@@ -147,12 +149,19 @@ public class Player : MonoBehaviour {
 			GetComponent<Rigidbody2D>().isKinematic=true;
 			transform.parent = coll.transform;
 		}
+		if(coll.transform.name == "RedButon"){
+			redButon = true;
+			GameObject.Find("RedButon").GetComponent<RedButon>().push = true;
+		}
 
 
 	}
 
 	void OnCollisionExit2D(Collision2D coll){
-
+		if(coll.transform.name == "RedButon"){
+			redButon = false;
+			GameObject.Find("RedButon").GetComponent<RedButon>().push = false;
+		}
 
 	}
 
