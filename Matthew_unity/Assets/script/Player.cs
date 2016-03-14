@@ -12,7 +12,7 @@ public class Player : MonoBehaviour {
 
 	public float jumpHeight;
 	public float jumpPushForce = 1f;
-	bool facingRight = true;
+	public bool facingRight = true;
 
 	bool wallJumped = false;
 
@@ -40,10 +40,10 @@ public class Player : MonoBehaviour {
 	public bool key = false;
 	public Texture ImgKey;
 
-	//public bool redButon = false;
+	public GameObject shot;
+	public Transform shotSpawn;
 
-	bool yoyo = false;
-
+	public bool lancer = false;
 
 
 
@@ -70,17 +70,6 @@ public class Player : MonoBehaviour {
 
 
 		}
-
-		if (GetComponent<Rigidbody2D>().velocity.x > 0 && !facingRight)
-		{
-			Flip();
-		}
-		else if (GetComponent<Rigidbody2D>().velocity.x < 0 && facingRight)
-		{
-			Flip();
-		}
-	
-
 
 	}
 	
@@ -115,28 +104,23 @@ public class Player : MonoBehaviour {
 
 		if(x > 0){
 
+			facingRight = true;
 			transform.Translate (x * speed * Time.deltaTime, 0, 0);
 			transform.eulerAngles = new Vector2 (0,0);
 			GetComponent<Rigidbody2D>().isKinematic = false;
 
 		}
 		if(x < 0){
-
+			facingRight = false;
 			transform.Translate (-x * speed * Time.deltaTime, 0, 0);
 			transform.eulerAngles = new Vector2(0,180);
 			GetComponent<Rigidbody2D>().isKinematic = false;
 
 		}
 
-		if (Input.GetKeyDown ("w")) {
-			yoyo = true;
-			anim.SetBool ("yoyo", yoyo);
-			
-			//this.transform.position = Vector2(200,0);
-
-		} else {
-			yoyo = false;
-			anim.SetBool ("yoyo", yoyo);
+		if (Input.GetKeyDown ("x") && lancer == false) {
+			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+			lancer = true;
 		}
 
 

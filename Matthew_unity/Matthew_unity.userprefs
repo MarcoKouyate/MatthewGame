@@ -1,16 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\script\Player.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/script/yoyo.cs">
     <Files>
-      <File FileName="Assets\script\Player.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\GantScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\coins.js" Line="1" Column="1" />
-      <File FileName="Assets\script\key.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\porte.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\RedButon.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\PorteEnd.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\mainSceneInput.cs" Line="1" Column="1" />
-      <File FileName="Assets\script\ColliderTrigger.cs" Line="1" Column="1" />
+      <File FileName="Assets/script/yoyo.cs" Line="17" Column="20" />
+      <File FileName="Assets/script/Player.cs" Line="47" Column="4" />
+      <File FileName="Assets/Plugins/Pixelplacement/iTween/Sample/MoveSample.cs" Line="7" Column="116" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
