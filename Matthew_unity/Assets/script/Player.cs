@@ -40,7 +40,9 @@ public class Player : MonoBehaviour {
 	public bool key = false;
 	public Texture ImgKey;
 
-	public bool redButon = false;
+	//public bool redButon = false;
+
+	bool yoyo = false;
 
 
 
@@ -65,10 +67,10 @@ public class Player : MonoBehaviour {
 		{
 			GetComponent<Rigidbody2D>().velocity = new Vector2(jumpPushForce * (facingRight ? -1:1), jumpHeight);
 			wallJumped = false;
+
+
 		}
 
-
-	
 		if (GetComponent<Rigidbody2D>().velocity.x > 0 && !facingRight)
 		{
 			Flip();
@@ -77,6 +79,8 @@ public class Player : MonoBehaviour {
 		{
 			Flip();
 		}
+	
+
 
 	}
 	
@@ -84,6 +88,7 @@ public class Player : MonoBehaviour {
 	void Update () {
 
 		bool wallSliding = false;
+
 
 
 		BarVie.fillAmount = tmpVie;
@@ -123,6 +128,17 @@ public class Player : MonoBehaviour {
 
 		}
 
+		if (Input.GetKeyDown ("w")) {
+			yoyo = true;
+			anim.SetBool ("yoyo", yoyo);
+			
+			//this.transform.position = Vector2(200,0);
+
+		} else {
+			yoyo = false;
+			anim.SetBool ("yoyo", yoyo);
+		}
+
 
 	}
 
@@ -133,6 +149,11 @@ public class Player : MonoBehaviour {
 			tmpVie = BarVie.fillAmount - 0.1f;
 			SetColor (BarVie.fillAmount);
 		}
+		if(coll.gameObject.tag == "pique"){
+			Debug.Log("pique");
+			Destroy(this.gameObject);
+		}
+
 		if(coll.gameObject.tag == "coin"){
 			Debug.Log("Coin");
 			coins = coins +1;
@@ -149,21 +170,21 @@ public class Player : MonoBehaviour {
 			GetComponent<Rigidbody2D>().isKinematic=true;
 			transform.parent = coll.transform;
 		}
-		if(coll.transform.name == "RedButon"){
+		/*if(coll.transform.name == "RedButon"){
 			redButon = true;
 			GameObject.Find("RedButon").GetComponent<RedButon>().push = true;
-		}
+		}*/
 
 
 	}
 
-	void OnCollisionExit2D(Collision2D coll){
+	/*void OnCollisionExit2D(Collision2D coll){
 		if(coll.transform.name == "RedButon"){
 			redButon = false;
 			GameObject.Find("RedButon").GetComponent<RedButon>().push = false;
 		}
 
-	}
+	}*/
 
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject.name == "Water") {
@@ -230,9 +251,9 @@ public class Player : MonoBehaviour {
 	{      
 		facingRight = !facingRight;
 		
-		Vector3 theScale = transform.localScale;
-		theScale.x *= -1;
-		transform.localScale = theScale;
+		//Vector3 theScale = transform.localScale;
+		//theScale.x *= -1;
+		//transform.localScale = theScale;
 	}
 
 

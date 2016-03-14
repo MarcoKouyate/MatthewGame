@@ -57,6 +57,7 @@
      <Compile Include="Assets\script\mainSceneInput.cs" />
      <Compile Include="Assets\script\porte.cs" />
      <Compile Include="Assets\script\scrooler.cs" />
+     <Compile Include="Assets\script\yoyo.cs" />
      <None Include="Assets\2D Sky FREE\!Readme.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

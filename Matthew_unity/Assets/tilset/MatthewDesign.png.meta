@@ -1,10 +1,11 @@
 fileFormatVersion: 2
 guid: d4c92ece4c444934daf9823e91d789f3
-timeCreated: 1456753885
+timeCreated: 1456915289
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: MatthewDesign_0
+    21300002: MatthewDesign_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -51,10 +52,10 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: MatthewDesign_0
+    - name: MatthewDesign_1
       rect:
         serializedVersion: 2
-        x: 192
+        x: 400
         y: 137
         width: 186
         height: 476
