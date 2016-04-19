@@ -45,25 +45,36 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\script\Attack_Turret.cs" />
      <Compile Include="Assets\script\Camera.cs" />
      <Compile Include="Assets\script\ColliderTrigger.cs" />
+     <Compile Include="Assets\script\FallingPlatform.cs" />
      <Compile Include="Assets\script\GantScript.cs" />
      <Compile Include="Assets\script\NavigationScript.cs" />
      <Compile Include="Assets\script\Player.cs" />
      <Compile Include="Assets\script\PorteEnd.cs" />
      <Compile Include="Assets\script\RedButon.cs" />
+     <Compile Include="Assets\script\Turret.cs" />
      <Compile Include="Assets\script\VieBarre.cs" />
+     <Compile Include="Assets\script\WinZone.cs" />
+     <Compile Include="Assets\script\abeille.cs" />
+     <Compile Include="Assets\script\bullet.cs" />
      <Compile Include="Assets\script\key.cs" />
      <Compile Include="Assets\script\mainSceneInput.cs" />
      <Compile Include="Assets\script\porte.cs" />
      <Compile Include="Assets\script\scrooler.cs" />
-     <Compile Include="Assets\script\yoyo.cs" />
      <None Include="Assets\2D Sky FREE\!Readme.txt" />
+ <Reference Include="UnityEngine.Advertisements">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Advertisements/UnityEngine.Advertisements.dll</HintPath>
+ </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
  </Reference>
  <Reference Include="Mono.Cecil">
  <HintPath>C:/Program Files/Unity/Editor/Data/Managed/Mono.Cecil.dll</HintPath>

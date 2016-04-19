@@ -7,6 +7,7 @@ public class RedButon : MonoBehaviour {
 	public Animator anim;
 	public bool push;
 
+
 	//public bool redButon = false;
 
 	// Use this for initialization
@@ -33,6 +34,7 @@ public class RedButon : MonoBehaviour {
 		if(coll.transform.tag == "Player"){
 			//redButon = true;
 			push = true;
+
 		}
 		
 		

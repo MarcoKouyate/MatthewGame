@@ -21,10 +21,6 @@ public class VieBarre : MonoBehaviour {
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 
 
@@ -37,7 +33,7 @@ public class VieBarre : MonoBehaviour {
 		} else if(BarVie.fillAmount >0.1f && BarVie.fillAmount < 0.25f) {
 			BarVie.color = badColor;
 		}else {
-			Destroy(GameObject.Find("Sonic"));
+			Destroy(GameObject.Find("Player"));
 		}
 	}
 }

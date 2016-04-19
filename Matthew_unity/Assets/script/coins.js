@@ -3,7 +3,7 @@
 //var coin : int =1;
 
 
-var player : int;
+//var player : int;
 
 function Start () {
 	//coin = 1;
@@ -15,7 +15,7 @@ function Update () {
 
 }
 
-function OnCollisionEnter2D(coll: Collision2D){
+function OnTriggerEnter2D(coll: Collider2D){
 		if(coll.gameObject.tag == "Player"){
 			Debug.Log("Coin");
 			Destroy(gameObject);
