@@ -5,21 +5,35 @@ public class lanceryoyo : MonoBehaviour {
 	
 	public float delay;
 	public float longueur;
+	Vector3 startPos;
+	GameObject yoyObject;
+    Vector3 teleportPoint;
+	Rigidbody2D rb;
 	GameObject player;
+	Player controller;
+	bool stop = false;
 
 	// Use this for initialization
 	void Start () {
 		player = GameObject.Find ("Player");
-		bool right = player.GetComponent<Player> ().facingRight;
+		yoyObject = GameObject.Find ("collider");
+		controller = player.GetComponent<Player> ();
+		rb = player.GetComponent<Rigidbody2D> ();
+		bool right = controller.facingRight;
+		bool air = controller.sol;
 
-		Vector3 targPos = gameObject.transform.position;
+		Vector3 spawnPos = gameObject.transform.position;
+		Vector3 targPos = spawnPos;
 
 
 
 		float x = Input.GetAxisRaw ("Horizontal");
 		float y = Input.GetAxisRaw ("Vertical");
 
-		Debug.Log (y);
+		if (controller.sol == false) {
+			longueur = longueur * 1.5f;
+			//delay = delay * 2.0f;
+		}
 
 		if (right == true) {
 			targPos.x += longueur;
@@ -38,12 +52,13 @@ public class lanceryoyo : MonoBehaviour {
 
 		Hashtable ht = new Hashtable();
 		ht.Add("position", targPos );
-		ht.Add("time", delay );
-		ht.Add("oncomplete", "Retourner");
-
-
-
-
+		ht.Add ("onupdate", "Transfert");
+		ht.Add("time", delay);
+		if (controller.teleport == true) {
+			ht.Add ("oncomplete", "Teleportation");
+		} else {
+			ht.Add ("oncomplete", "Retourner");
+		}
 
 		iTween.MoveTo(gameObject, ht);
 	}
@@ -52,29 +67,47 @@ public class lanceryoyo : MonoBehaviour {
 	void Update(){
 		float dist = Vector3.Distance(player.transform.position, transform.position);
 		if (dist > longueur + longueur / 2) {
-			//Stop();
-			Retourner ();
+			if (controller.teleport == true){
+				Teleportation();
+			} else {
+				Retourner ();
+			}
 		}
 	}
 
-	void Stop () {
-
-		player.GetComponent<Player> ().lancer = false;
-
+	void Stop(){
+		stop = true; 
+		controller.lancer = false;
 		Destroy (gameObject);
-
 	}
 
 	void Retourner(){
-		GameObject player = GameObject.Find ("Player"); 
 		Vector3 targPos = player.transform.position;
 
 		Hashtable ht = new Hashtable();
 		ht.Add("position", targPos );
-		ht.Add("time", delay/10);
+		ht.Add("time", delay/5);
 		ht.Add("oncomplete", "Stop");
 
 		iTween.MoveTo(gameObject, ht);
 
+	}
+
+	void Teleportation(){
+		rb.isKinematic = false;
+		rb.position = transform.position;
+		//rb.isKinematic = true;
+		Stop ();
+
+	}
+	
+
+	void OnTriggerEnter2D(Collider2D other) {
+		if (other.CompareTag("sol")){
+
+			Retourner();
+			Debug.Log (other);
+
+		}
 	}
 }

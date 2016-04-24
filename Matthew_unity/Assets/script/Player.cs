@@ -44,6 +44,7 @@ public class Player : MonoBehaviour {
 	public Transform shotSpawn;
 
 	public bool lancer = false;
+	public bool teleport = false;
 
 
 
@@ -121,8 +122,14 @@ public class Player : MonoBehaviour {
 		if (Input.GetKeyDown ("x") && lancer == false) {
 			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
 			lancer = true;
+			teleport = false;
 		}
 
+		if (Input.GetKeyDown ("c") && lancer == false) {
+			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+			lancer = true;
+			teleport = true;
+		}
 
 	}
 
