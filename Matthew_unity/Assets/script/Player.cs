@@ -12,7 +12,7 @@ public class Player : MonoBehaviour {
 
 	public float jumpHeight;
 	public float jumpPushForce = 1f;
-	public bool facingRight = true;
+	bool facingRight = true;
 
 	bool wallJumped = false;
 
@@ -40,11 +40,10 @@ public class Player : MonoBehaviour {
 	public bool key = false;
 	public Texture ImgKey;
 
-	public GameObject shot;
-	public Transform shotSpawn;
+	//public bool redButon = false;
 
-	public bool lancer = false;
-	public bool teleport = false;
+	bool yoyo = false;
+
 
 
 
@@ -70,6 +69,17 @@ public class Player : MonoBehaviour {
 			wallJumped = false;
 
 		}
+
+		if (GetComponent<Rigidbody2D>().velocity.x > 0 && !facingRight)
+		{
+			Flip();
+		}
+		else if (GetComponent<Rigidbody2D>().velocity.x < 0 && facingRight)
+		{
+			Flip();
+		}
+	
+
 
 	}
 	
@@ -104,14 +114,13 @@ public class Player : MonoBehaviour {
 
 		if(x > 0){
 
-			facingRight = true;
 			transform.Translate (x * speed * Time.deltaTime, 0, 0);
 			transform.eulerAngles = new Vector2 (0,0);
 			GetComponent<Rigidbody2D>().isKinematic = false;
 
 		}
 		if(x < 0){
-			facingRight = false;
+
 			transform.Translate (-x * speed * Time.deltaTime, 0, 0);
 			transform.eulerAngles = new Vector2(0,180);
 			GetComponent<Rigidbody2D>().isKinematic = false;
@@ -119,18 +128,7 @@ public class Player : MonoBehaviour {
 		}
 
 
-		if (Input.GetKeyDown ("x") && lancer == false) {
-			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-			lancer = true;
-			teleport = false;
-		}
 
-
-		if (Input.GetKeyDown ("c") && lancer == false) {
-			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
-			lancer = true;
-			teleport = true;
-		}
 
 	}
 
@@ -186,9 +184,9 @@ public class Player : MonoBehaviour {
 			jumpHeight = 1;
 			Debug.Log("water");
 		}
-		if (other.gameObject.name == "Objet_jump") {
+		if (other.gameObject.name == "Gant") {
 			grounded = true;
-			Destroy(other.gameObject);
+			Destroy(GameObject.Find("Gant"));
 
 		}
 
