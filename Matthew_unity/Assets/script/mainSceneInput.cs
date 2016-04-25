@@ -7,8 +7,9 @@ public class mainSceneInput : MonoBehaviour {
 	void Start () {
 		myCanvas = GameObject.Find ("MENU");
 		myCanvas.SetActive(false);
-
 	
+	
+		//CursorLocked();
 	}
 	
 	// Update is called once per frame
@@ -26,10 +27,16 @@ public class mainSceneInput : MonoBehaviour {
 				myCanvas.SetActive(false);
 				Cursor.lockState = CursorLockMode.Locked;
 				Time.timeScale = 1;
-			}
-			
-			Debug.Log("touche m");
-			
+			}	
 		}
 	}
+
+
+	/*public void CursorLocked(){
+		myCanvas.SetActive(false);
+		Cursor.lockState = CursorLockMode.Locked;
+		Time.timeScale = 1;
+	}*/
+
+
 }

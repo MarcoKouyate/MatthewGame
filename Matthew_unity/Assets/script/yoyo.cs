@@ -31,7 +31,7 @@ public class yoyo : MonoBehaviour {
 		if(coll.gameObject.tag == "key"){
 			GameObject.Find("Player").GetComponent<Player>().key = true;
 			GUI.Label( new Rect(200, 200, 85, 25), "KEY");
-			GameObject.Find("Porte").GetComponent<porte>().key = true;
+
 		}
 
 		

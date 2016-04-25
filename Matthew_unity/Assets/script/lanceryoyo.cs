@@ -7,6 +7,7 @@ public class lanceryoyo : MonoBehaviour {
 	public float longueur;
 	Vector3 startPos;
 	GameObject yoyObject;
+	LineRenderer lineRenderer;
     Vector3 teleportPoint;
 	Rigidbody2D rb;
 	GameObject player;
@@ -18,6 +19,8 @@ public class lanceryoyo : MonoBehaviour {
 		player = GameObject.Find ("Player");
 		yoyObject = GameObject.Find ("collider");
 		controller = player.GetComponent<Player> ();
+		lineRenderer = GetComponent<LineRenderer>();
+		lineRenderer.SetWidth(0.02F, 0.02F);
 		rb = player.GetComponent<Rigidbody2D> ();
 		bool right = controller.facingRight;
 		bool air = controller.sol;
@@ -73,6 +76,11 @@ public class lanceryoyo : MonoBehaviour {
 				Retourner ();
 			}
 		}
+
+		lineRenderer.SetPosition(0, player.transform.position);
+		lineRenderer.SetPosition(1, transform.position);
+		lineRenderer.sortingLayerName = "Foreground";
+		
 	}
 
 	void Stop(){

@@ -35,7 +35,7 @@ public class Player : MonoBehaviour {
 	public Color middleColor;
 	public Color badColor;
 	Image BarVie;
-	float tmpVie=1;
+	public float tmpVie=1;
 
 	public bool key = false;
 	public Texture ImgKey;
@@ -68,7 +68,6 @@ public class Player : MonoBehaviour {
 		{
 			GetComponent<Rigidbody2D>().velocity = new Vector2(jumpPushForce * (facingRight ? -1:1), jumpHeight);
 			wallJumped = false;
-
 
 		}
 
@@ -119,11 +118,13 @@ public class Player : MonoBehaviour {
 
 		}
 
+
 		if (Input.GetKeyDown ("x") && lancer == false) {
 			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
 			lancer = true;
 			teleport = false;
 		}
+
 
 		if (Input.GetKeyDown ("c") && lancer == false) {
 			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
@@ -135,25 +136,21 @@ public class Player : MonoBehaviour {
 
 
 	void OnCollisionEnter2D(Collision2D coll){
-		if(coll.gameObject.tag == "Ennemi"){
-			Debug.Log("Ennemi");
-			tmpVie = BarVie.fillAmount - 0.1f;
-			SetColor (BarVie.fillAmount);
-		}
+
 		if(coll.gameObject.tag == "pique"){
 			Debug.Log("pique");
-			Destroy(this.gameObject);
+			Application.LoadLevel("scene");
 		}
-
 		if(coll.gameObject.tag == "coin"){
 			Debug.Log("Coin");
 			coins = coins +1;
-
+			
 		}
+
 		if (coll.gameObject.tag == "key") {
 			key = true;
 			GUI.Label( new Rect(200, 200, 85, 25), "KEY");
-			GameObject.Find("Porte").GetComponent<porte>().key = true;
+
 		}
 
 		if (coll.transform.tag == "platform") 
@@ -161,23 +158,28 @@ public class Player : MonoBehaviour {
 			GetComponent<Rigidbody2D>().isKinematic=true;
 			transform.parent = coll.transform;
 		}
-		/*if(coll.transform.name == "RedButon"){
-			redButon = true;
-			GameObject.Find("RedButon").GetComponent<RedButon>().push = true;
-		}*/
-
+	
 
 	}
 
-	/*void OnCollisionExit2D(Collision2D coll){
-		if(coll.transform.name == "RedButon"){
-			redButon = false;
-			GameObject.Find("RedButon").GetComponent<RedButon>().push = false;
-		}
-
-	}*/
 
 	void OnTriggerEnter2D(Collider2D other){
+		if(other.gameObject.tag == "bullet"){
+			Debug.Log("bullet");
+			tmpVie = BarVie.fillAmount - 0.1f;
+			SetColor (BarVie.fillAmount);
+		}
+
+		if(other.gameObject.tag == "coin"){
+			Debug.Log("Coin");
+			coins = coins +1;
+			
+		}
+
+		if(other.gameObject.name == "DeathZone"){
+			Application.LoadLevel("scene");
+		}
+
 		if (other.gameObject.name == "Water") {
 			water = true;
 			GetComponent<Rigidbody2D>().gravityScale = 0.2f;
@@ -186,7 +188,7 @@ public class Player : MonoBehaviour {
 		}
 		if (other.gameObject.name == "Objet_jump") {
 			grounded = true;
-			Destroy(GameObject.Find("Objet_jump"));
+			Destroy(other.gameObject);
 
 		}
 
@@ -196,6 +198,10 @@ public class Player : MonoBehaviour {
 		if (other.gameObject.name == "Sol") {
 			sol = true;
 		}
+		if (other.gameObject.name == "TrigerPorte" && key==true) {
+			GameObject.Find("Porte").GetComponent<porte>().key = true;
+		}
+
 
 	}
 	void OnTriggerExit2D(Collider2D other){
@@ -224,15 +230,16 @@ public class Player : MonoBehaviour {
 		}else {
 			BarVie.fillAmount = 0f;
 			Destroy(this.gameObject);
+			Application.LoadLevel("scene");
 		}
 	}
 
 	void OnGUI(){
 
-		GUI.Label( new Rect(150, 100, 85, 25), " "+coins);
+		GUI.Label( new Rect(150, 175, 85, 25), " "+coins);
 
 		if (key == true) {
-			GUI.DrawTexture(new Rect(100, 120, 60, 60), ImgKey, ScaleMode.StretchToFill, true, 10.0F);
+			GUI.DrawTexture(new Rect(90, 190, 60, 60), ImgKey, ScaleMode.StretchToFill, true, 10.0F);
 
 		}
 

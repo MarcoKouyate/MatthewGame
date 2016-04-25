@@ -14,12 +14,17 @@ public class Camera : MonoBehaviour {
 	public Vector3 minCameraPos;
 	public Vector3 maxCameraPos;
 
+	int coins;
+	bool key;
+	Texture ImgKey;
 
 
 	void Start () {
 	
 		player = GameObject.FindGameObjectWithTag("Player");
-
+		coins = GameObject.FindGameObjectWithTag("Player").GetComponent<Player> ().coins;
+		key = GameObject.FindGameObjectWithTag("Player").GetComponent<Player> ().key;
+		ImgKey = GameObject.FindGameObjectWithTag("Player").GetComponent<Player> ().ImgKey;
 
 	}
 
@@ -34,6 +39,29 @@ public class Camera : MonoBehaviour {
 			                                 Mathf.Clamp(transform.position.y, minCameraPos.y, maxCameraPos.y),
 			                                 Mathf.Clamp(transform.position.z, minCameraPos.z, maxCameraPos.z));
 		}
+
+		/*if(GameObject.Find("RedButon").GetComponent<RedButon>().push == true){
+			//Vector3 tarPos = gameObject.transform.position;
+			transform.position = new Vector3 (Mathf.SmoothDamp (player.transform.position.x, 0, ref velocity.x, smoothTimeX),posY,transform.position.z);
+			//tarPos.x = 100;
+		 }*/
+	}
+
+	/*void OnGUI(){
+		
+		GUI.Label( new Rect(130, 145, 85, 25), " " + coins);
+		
+		if (key == true) {
+			Debug.Log ("KEYCamera");
+			GUI.DrawTexture(new Rect(100, 120, 60, 60), ImgKey, ScaleMode.StretchToFill, true, 10.0F);
+			
+		}
+		
+	}*/
+
+	void update(){
+
+
 	}
 	
 
