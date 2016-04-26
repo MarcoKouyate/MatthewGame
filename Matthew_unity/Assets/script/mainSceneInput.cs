@@ -2,18 +2,18 @@
 using System.Collections;
 
 public class mainSceneInput : MonoBehaviour {
-	//GameObject myCanvas;
+	GameObject myCanvas;
 	// Use this for initialization
 	void Start () {
-		//myCanvas = GameObject.Find ("MENU");
-		//myCanvas.SetActive(false);
+		myCanvas = GameObject.Find ("MENU");
+		myCanvas.SetActive(false);
 	
 	
 		//CursorLocked();
 	}
 	
 	// Update is called once per frame
-	/*void Update () {
+	void Update () {
 		
 		if (Input.GetKeyDown("m"))
 		{
@@ -32,7 +32,7 @@ public class mainSceneInput : MonoBehaviour {
 			Debug.Log("touche m");
 			
 		}
-	}*/
+	}
 
 
 	/*public void CursorLocked(){

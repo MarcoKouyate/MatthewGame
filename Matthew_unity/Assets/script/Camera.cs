@@ -21,10 +21,10 @@ public class Camera : MonoBehaviour {
 
 	void Start () {
 	
-		player = GameObject.FindGameObjectWithTag("Player");
-		coins = GameObject.FindGameObjectWithTag("Player").GetComponent<Player> ().coins;
-		key = GameObject.FindGameObjectWithTag("Player").GetComponent<Player> ().key;
-		ImgKey = GameObject.FindGameObjectWithTag("Player").GetComponent<Player> ().ImgKey;
+		player = GameObject.Find("Player");
+		coins = GameObject.Find("Player").GetComponent<Player> ().coins;
+		key = GameObject.Find("Player").GetComponent<Player> ().key;
+		ImgKey = GameObject.Find("Player").GetComponent<Player> ().ImgKey;
 
 	}
 

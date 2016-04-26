@@ -2,8 +2,7 @@
 using System.Collections;
 
 public class abeille : MonoBehaviour {
-	public int vie;
-	public int maxVie;
+
 	
 	public float distance;
 	public float wakeRange;
@@ -23,14 +22,17 @@ public class abeille : MonoBehaviour {
 
 	public float moveSpeed = 1f;
 	private Vector2 velocity;
+
+
 	
 	void Awake(){
 		anim = gameObject.GetComponent<Animator> ();
+
 		//ennemi = transform.position.x;
 	}
 	
 	void Start(){
-		vie = maxVie;
+
 	}
 	
 	void Update(){
@@ -59,7 +61,7 @@ public class abeille : MonoBehaviour {
 		
 		if (distance < wakeRange) {
 			awake = true;
-			Debug.Log ("distance<wakeRange");
+			//Debug.Log ("distance<wakeRange");
 			float posX = Mathf.SmoothDamp (transform.position.x, target.transform.position.x, ref velocity.x, 2f);
 			transform.position = new Vector3(posX, transform.position.y, transform.position.z);
 			//GetComponent<Rigidbody2D>().velocity = (target.transform.position - transform.position) * moveSpeed;
@@ -67,7 +69,7 @@ public class abeille : MonoBehaviour {
 		
 		if (distance > wakeRange) {
 			awake = false;
-			Debug.Log ("distance>wakeRange");
+			//Debug.Log ("distance>wakeRange");
 
 		}
 	}
@@ -107,4 +109,11 @@ public class abeille : MonoBehaviour {
 		}
 		
 	}
+
+	void OnTriggerEnter2D (Collider other){
+		if (other.CompareTag("Weapon")){
+
+		}
+	}
+
 }

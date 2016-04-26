@@ -12,7 +12,7 @@ public class Player : MonoBehaviour {
 
 	public float jumpHeight;
 	public float jumpPushForce = 1f;
-	bool facingRight = true;
+	public bool facingRight = true;
 
 	bool wallJumped = false;
 
@@ -22,8 +22,17 @@ public class Player : MonoBehaviour {
 
 	public int coins = 0;
 
+	public GameObject shot;
+	public Transform shotSpawn;
+	
+	public bool lancer = false;
+	public bool teleport = false;
+
 	public Transform checkSol;
 	public bool toucheSol = false;
+	bool hurt = false;
+	public int cooldown;
+	int colddown;
 	public bool grounded = false;
 	public Transform groundCheck;
 	public float rayonSol = 0f;
@@ -63,24 +72,13 @@ public class Player : MonoBehaviour {
 		anim.SetBool ("sol", toucheSol);
 
 
+
 		if(wallJumped)
 		{
 			GetComponent<Rigidbody2D>().velocity = new Vector2(jumpPushForce * (facingRight ? -1:1), jumpHeight);
 			wallJumped = false;
 
 		}
-
-		if (GetComponent<Rigidbody2D>().velocity.x > 0 && !facingRight)
-		{
-			Flip();
-		}
-		else if (GetComponent<Rigidbody2D>().velocity.x < 0 && facingRight)
-		{
-			Flip();
-		}
-	
-
-
 	}
 	
 	// Update is called once per frame
@@ -95,7 +93,7 @@ public class Player : MonoBehaviour {
 		float x = Input.GetAxis ("Horizontal");
 		anim.SetFloat ("speed", Mathf.Abs(x));
 
-		if (toucheSol && sol && Input.GetButtonDown ("Jump") || water && Input.GetButtonDown ("Jump") ) {
+		if (toucheSol && sol && Input.GetButtonDown ("Jump") && hurt == false|| water && Input.GetButtonDown ("Jump") ) {
 
 			GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,jumpHeight);
 
@@ -112,24 +110,45 @@ public class Player : MonoBehaviour {
 			transform.parent = null;
 		}
 
-		if(x > 0){
-
+		if(x > 0 && hurt == false){
+			facingRight = true;
 			transform.Translate (x * speed * Time.deltaTime, 0, 0);
 			transform.eulerAngles = new Vector2 (0,0);
 			GetComponent<Rigidbody2D>().isKinematic = false;
 
 		}
-		if(x < 0){
-
+		if(x < 0 && hurt == false){
+			facingRight = false;
 			transform.Translate (-x * speed * Time.deltaTime, 0, 0);
 			transform.eulerAngles = new Vector2(0,180);
 			GetComponent<Rigidbody2D>().isKinematic = false;
 
 		}
 
+		if (Input.GetKeyDown ("x") && lancer == false) {
+			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+			lancer = true;
+			teleport = false;
+		}
+		
+		
+		if (Input.GetKeyDown ("c") && lancer == false) {
+			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
+			lancer = true;
+			teleport = true;
+		}
 
+		if (hurt==true) {
+			colddown--;
+		} else {
+			colddown = cooldown;
+		}
 
-
+		if (colddown <= 0){ 
+			hurt = false;
+			colddown = cooldown;
+			anim.SetTrigger("repos");
+		}
 	}
 
 
@@ -166,6 +185,9 @@ public class Player : MonoBehaviour {
 			Debug.Log("bullet");
 			tmpVie = BarVie.fillAmount - 0.1f;
 			SetColor (BarVie.fillAmount);
+			hurt = true;
+			anim.SetTrigger("hurt");
+
 		}
 
 		if(other.gameObject.tag == "coin"){
