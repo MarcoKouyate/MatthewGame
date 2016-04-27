@@ -5,7 +5,7 @@ public class FallingPlatform : MonoBehaviour {
 
 	private Rigidbody2D rb2d;
 	bool startCount = false;
-	float startTime = 0.0f;
+	public float startTime = 0.0f;
 	//public float faillDelay;
 
 	void Start(){

@@ -45,6 +45,7 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\script\AfterBoss.cs" />
      <Compile Include="Assets\script\Attack_Turret.cs" />
      <Compile Include="Assets\script\Camera.cs" />
      <Compile Include="Assets\script\ColliderTrigger.cs" />
@@ -55,14 +56,18 @@
      <Compile Include="Assets\script\PorteEnd.cs" />
      <Compile Include="Assets\script\RedButon.cs" />
      <Compile Include="Assets\script\Scan.cs" />
+     <Compile Include="Assets\script\Slim.cs" />
+     <Compile Include="Assets\script\SoundManager.cs" />
      <Compile Include="Assets\script\VieBarre.cs" />
      <Compile Include="Assets\script\WinZone.cs" />
      <Compile Include="Assets\script\abeille.cs" />
      <Compile Include="Assets\script\bullet.cs" />
+     <Compile Include="Assets\script\embuscade.cs" />
      <Compile Include="Assets\script\key.cs" />
      <Compile Include="Assets\script\mainSceneInput.cs" />
      <Compile Include="Assets\script\porte.cs" />
      <Compile Include="Assets\script\scrooler.cs" />
+     <Compile Include="Assets\script\secretRoom.cs" />
      <Compile Include="Assets\yoyo-kun\Player2.cs" />
      <Compile Include="Assets\yoyo-kun\lanceryoyo.cs" />
      <None Include="Assets\2D Sky FREE\!Readme.txt" />

@@ -118,7 +118,7 @@ public class lanceryoyo : MonoBehaviour {
 
 	void Teleportation(){
 		rb.isKinematic = false;
-		rb.position = transform.position;
+		rb.position = transform.position + Vector3.up * 0.3f;
 		//rb.isKinematic = true;
 		Stop ();
 
@@ -126,9 +126,13 @@ public class lanceryoyo : MonoBehaviour {
 	
 
 	void OnTriggerEnter2D(Collider2D other) {
-		if (other.CompareTag("sol")){
 
-			Retourner();
+		if (other.CompareTag("sol") || other.CompareTag("mur")  ){
+			if (controller.teleport == true) {
+				Teleportation();
+			} else {
+				Retourner();
+			}
 			//Debug.Log (other);
 		}
 
@@ -152,11 +156,19 @@ public class lanceryoyo : MonoBehaviour {
 			
 		}
 
-		if (other.CompareTag("sol")){
-			
-			Retourner();
-			//Debug.Log (other);
+
+		if(other.CompareTag("coin")){
+					controller.coins = controller.coins +1;
+					Destroy(other.gameObject);
+			}
+
+		if (other.CompareTag("key")) {
+				controller.key = true;
+				GUI.Label( new Rect(200, 200, 85, 25), "KEY");
+				Destroy(other.gameObject);		
 		}
+	
+			//Debug.Log (other);
 
 	}
 	

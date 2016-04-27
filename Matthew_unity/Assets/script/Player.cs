@@ -49,6 +49,8 @@ public class Player : MonoBehaviour {
 	public bool key = false;
 	public Texture ImgKey;
 
+	public AudioClip jumpSound;
+
 	//public bool redButon = false;
 
 	bool yoyo = false;
@@ -61,8 +63,6 @@ public class Player : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 		BarVie = GameObject.Find("MainCamera").transform.FindChild("Canvas").FindChild("BarVie").GetComponent<Image>();
 		SetColor (1);
-
-
 	}
 
 	void FixedUpdate(){
@@ -70,6 +70,10 @@ public class Player : MonoBehaviour {
 
 		toucheSol = Physics2D.OverlapCircle (checkSol.position, rayonSol, Sol); //es-ce que mon cercle touche quelque chose entre la position du game object chechSo, le rayon et le mask sol
 		anim.SetBool ("sol", toucheSol);
+		if (sol == true && lancer == false) {
+			teleport = false; 
+			Debug.Log ("SOOL");
+		}
 
 
 
@@ -77,6 +81,7 @@ public class Player : MonoBehaviour {
 		{
 			GetComponent<Rigidbody2D>().velocity = new Vector2(jumpPushForce * (facingRight ? -1:1), jumpHeight);
 			wallJumped = false;
+			facingRight = !facingRight;
 
 		}
 	}
@@ -96,6 +101,8 @@ public class Player : MonoBehaviour {
 		if (toucheSol && sol && Input.GetButtonDown ("Jump") && hurt == false|| water && Input.GetButtonDown ("Jump") ) {
 
 			GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,jumpHeight);
+			anim.SetTrigger("jump");
+
 
 		}
 		else if (grounded && mur && Input.GetButtonDown ("Jump")) {
@@ -126,13 +133,13 @@ public class Player : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown ("x") && lancer == false) {
-			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
 			lancer = true;
 			teleport = false;
+			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
 		}
 		
 		
-		if (Input.GetKeyDown ("c") && lancer == false) {
+		if (Input.GetKeyDown ("c") && lancer == false && teleport == false) {
 			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
 			lancer = true;
 			teleport = true;
@@ -144,10 +151,12 @@ public class Player : MonoBehaviour {
 			colddown = cooldown;
 		}
 
-		if (colddown <= 0){ 
+		if (colddown <= 0) { 
 			hurt = false;
 			colddown = cooldown;
-			anim.SetTrigger("repos");
+			anim.SetTrigger ("repos");
+		} else if (cooldown == colddown) {
+			anim.SetTrigger ("repos");
 		}
 	}
 
@@ -202,14 +211,14 @@ public class Player : MonoBehaviour {
 
 		if (other.gameObject.name == "Water") {
 			water = true;
-			GetComponent<Rigidbody2D>().gravityScale = 0.2f;
-			jumpHeight = 1;
-			Debug.Log("water");
-		}
-		if (other.gameObject.name == "Gant") {
-			grounded = true;
-			Destroy(GameObject.Find("Gant"));
+			GetComponent<Rigidbody2D>().drag = 14f;
+			//jumpHeight = 1;
+			anim.SetBool("water" , water);
 
+		}
+		if (other.gameObject.name == "Gant" || other.CompareTag("Gant")) {
+			grounded = true;
+			Destroy(other.gameObject);
 		}
 
 		if (other.gameObject.name == "MUR") {
@@ -222,13 +231,19 @@ public class Player : MonoBehaviour {
 			GameObject.Find("Porte").GetComponent<porte>().key = true;
 		}
 
+		if (other.CompareTag ("Soin")) {
+			tmpVie = BarVie.fillAmount + 0.5f;
+			SetColor (BarVie.fillAmount);
+			Destroy(other.gameObject);
+		}
 
 	}
 	void OnTriggerExit2D(Collider2D other){
 		if (other.gameObject.name == "Water") {
 			water = false;
-			GetComponent<Rigidbody2D>().gravityScale = 2;
+			GetComponent<Rigidbody2D>().drag = 0;
 			jumpHeight = 7;
+			anim.SetBool("water" , water);
 		}
 
 		if (other.gameObject.name == "MUR") {

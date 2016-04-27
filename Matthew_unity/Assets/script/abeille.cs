@@ -62,7 +62,7 @@ public class abeille : MonoBehaviour {
 		if (distance < wakeRange) {
 			awake = true;
 			//Debug.Log ("distance<wakeRange");
-			float posX = Mathf.SmoothDamp (transform.position.x, target.transform.position.x, ref velocity.x, 2f);
+			float posX = Mathf.SmoothDamp (transform.position.x, target.transform.position.x, ref velocity.x, 1.5f);
 			transform.position = new Vector3(posX, transform.position.y, transform.position.z);
 			//GetComponent<Rigidbody2D>().velocity = (target.transform.position - transform.position) * moveSpeed;
 		}
@@ -111,8 +111,8 @@ public class abeille : MonoBehaviour {
 	}
 
 	void OnTriggerEnter2D (Collider other){
-		if (other.CompareTag("Weapon")){
-
+		if (other.CompareTag("Mur")){
+			velocity = Vector3.zero;
 		}
 	}
 

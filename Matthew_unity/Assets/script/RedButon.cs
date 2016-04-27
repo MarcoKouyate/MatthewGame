@@ -6,6 +6,9 @@ public class RedButon : MonoBehaviour {
 
 	public Animator anim;
 	public bool push;
+	public GameObject boite;
+	bool first = true;
+	bool done = false;
 
 
 	//public bool redButon = false;
@@ -34,6 +37,12 @@ public class RedButon : MonoBehaviour {
 		if(coll.transform.tag == "Player"){
 			//redButon = true;
 			push = true;
+			if (first == false) {
+				Vector3 location = new Vector3 (transform.position.x + 3, transform.position.y + 2, transform.position.z);
+				Instantiate(boite, location, transform.rotation);
+				done = true;
+				first = true;
+			}
 
 		}
 		
@@ -47,6 +56,9 @@ public class RedButon : MonoBehaviour {
 		}
 		if(coll.transform.tag == "Player"){
 			push = false;
+			if (done == false){
+				first = false; 
+			}
 			GameObject.Find("RedButon").GetComponent<RedButon>().push = false;
 		}
 		
